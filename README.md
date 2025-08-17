@@ -1,124 +1,101 @@
-🫁 Lung Cancer Survey Analysis & Prediction
-📌 Overview
+🫁 Prediction of Lung Cancer using Machine Learning
+🔍 Project Overview
 
-This project analyzes a Lung Cancer Survey Dataset and builds a machine learning model to predict whether a person has lung cancer or not.
-It includes:
-
-Data Cleaning & Preprocessing
-
-Exploratory Data Analysis (EDA) using plots
-
-Correlation Heatmap
-
-Machine Learning Models (Random Forest, optional SVM)
-
-Model Evaluation (Accuracy & Confusion Matrix)
+This project develops a machine learning system to predict lung cancer based on patient health parameters and lifestyle indicators. The goal is to enable early detection, improve treatment planning, and reduce mortality rates.
+The best trained model in this project achieved high classification accuracy, demonstrating the potential of AI-assisted healthcare screening.
 
 📂 Dataset
 
-File: survey lung cancer.csv
+You can download the dataset from:
+👉 Lung Cancer Dataset
 
-Contains medical survey data with attributes such as:
+📑 Sample Data Structure
+{
+  "Age": [45, 60, ...],                # Age of the patient
+  "Gender": ["Male", "Female", ...],   # Gender of the patient
+  "Smoking": [1, 0, ...],              # Smoking status (1 = Yes, 0 = No)
+  "Yellow_Fingers": [1, 0, ...],       # Symptom indicator
+  "Anxiety": [1, 0, ...],              # Anxiety status
+  "Peer_Pressure": [0, 1, ...],        # Social factor
+  "Chronic_Disease": [0, 1, ...],      # Presence of chronic illness
+  "Fatigue": [1, 0, ...],              # Fatigue level
+  "Wheezing": [1, 0, ...],             # Symptom indicator
+  "Coughing": [1, 0, ...],             # Symptom indicator
+  "Lung_Cancer": ["YES", "NO", ...]    # Target variable
+}
 
-GENDER (M/F)
+⚙️ Requirements
 
-Symptoms (e.g., COUGHING, FATIGUE, etc.)
+Install required libraries before running the project:
 
-LUNG_CANCER (YES/NO → Target variable)
+pip install pandas scikit-learn matplotlib seaborn
 
-⚙️ Steps in the Code
+🚀 Steps to Run
 
-Import Libraries
+Clone or download this repository.
 
-pandas, numpy for data handling
+Download and place the dataset in the project folder.
 
-seaborn, matplotlib for visualization
+Run the training script:
 
-sklearn for machine learning
+python lung_cancer_prediction.py
 
-Load Data
+📊 Workflow
 
-df = pd.read_csv("C:/Users/katam/Desktop/survey lung cancer.csv")
+Data Loading & Exploration
 
+Import dataset with pandas
 
-Data Cleaning
+Handle missing values & encode categorical data
 
-Remove duplicates
+Preprocessing
 
-Encode categorical values:
+Convert categorical variables (e.g., Gender, Yes/No) into numeric
 
-GENDER: M → 1, F → 0
+Normalize features if required
 
-LUNG_CANCER: YES → 1, NO → 0
+Model Training
 
-Exploratory Data Analysis (EDA)
+Algorithms used: Logistic Regression, Decision Tree, Random Forest, etc.
 
-Dataset summary with .info(), .describe()
+Data split: 80% training / 20% testing
 
-Visualizations:
-
-Histograms of features
-
-Pairplot for relationships
-
-Countplot of gender distribution with percentages
-
-Correlation heatmap
-
-Feature & Target Selection
-
-X = df.iloc[:, :-1]      # Features  
-y = df['LUNG_CANCER']    # Target  
-
-
-Train-Test Split
-
-X_train, X_test, y_train, y_test = model_selection.train_test_split(
-    X, y, test_size=0.2, random_state=123
-)
-
-
-Model Training (Random Forest)
-
-model = RandomForestClassifier()
-model.fit(X_train, y_train)
-
-
-Prediction & Evaluation
+Evaluation
 
 Accuracy Score
 
-Confusion Matrix visualization
+Confusion Matrix
 
-📊 Output Examples
+Classification Report
 
-Histograms & Pairplots showing feature distributions.
+Visualization
 
-Correlation Heatmap to check relationships.
+Heatmaps for feature correlation
 
-Confusion Matrix to evaluate classification performance.
+Confusion matrix plot for classification performance
 
-Accuracy score printed in console.
+✅ Output
 
-🚀 How to Run
+Prediction: Probability of lung cancer (YES/NO)
 
-Clone this repo / download the project files.
+Performance Metrics:
 
-Place survey lung cancer.csv in the specified path.
+Accuracy: XX%
 
-Install required libraries:
+Precision, Recall, F1-score
 
-pip install pandas numpy matplotlib seaborn scikit-learn
+Graphs:
 
+Confusion Matrix Heatmap
 
-Run the Python script:
+Feature importance plots
 
-python lung_cancer_analysis.py
+🌟 Impact
 
-🔮 Future Work
+Early and accurate prediction of lung cancer can:
 
-Add Support Vector Machine (SVM) classifier for comparison.
+Improve survival rates
 
-Try hyperparameter tuning with GridSearchCV.
+Support doctors in diagnosis
 
-Deploy as a web app (Streamlit/Flask).
+Reduce healthcare costs by enabling timely treatment
