@@ -1,0 +1,78 @@
+# Import libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import model_selection, metrics
+from sklearn.svm import SVC
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+# Load dataset
+df = pd.read_csv("C:/Users/katam/Desktop/survey lung cancer.csv")
+
+# Basic exploration
+print(df.head())
+print(df.shape)
+print(df.columns)
+print(df.info())
+print(df.isnull().sum())
+
+# Remove duplicates
+df = df.drop_duplicates()
+
+# Encode categorical columns
+df['GENDER'] = df['GENDER'].map({'M': 1, 'F': 0})
+df['LUNG_CANCER'] = df['LUNG_CANCER'].map({'YES': 1, 'NO': 0})
+
+# Descriptive statistics
+print(df.describe())
+print(df.describe(include='object'))
+
+# Histograms
+df.hist(figsize=(20, 15), color='darkorange', edgecolor='black')
+plt.show()
+
+# Pairplot
+sns.pairplot(df)
+plt.show()
+
+# Countplot with percentage
+total = float(df.shape[0])
+ploting = sns.countplot(x='GENDER', data=df)
+for p in ploting.patches:
+    height = p.get_height()
+    ploting.text(p.get_x() + p.get_width()/2., height,
+                 '{:.2f}%'.format((height/total)*100),
+                 ha='center')
+plt.show()
+
+# Correlation heatmap
+plt.figure(figsize=(10, 10))
+sns.heatmap(df.corr(), annot=True, cmap='YlGn')
+plt.show()
+
+# Features and Target
+X = df.iloc[:, :-1]   # All columns except last one (LUNG_CANCER)
+y = df['LUNG_CANCER']
+
+# Train-test split
+X_train, X_test, y_train, y_test = model_selection.train_test_split(
+    X, y, test_size=0.2, random_state=123
+)
+
+# Random Forest Model
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+
+# Predictions
+prediction = model.predict(X_test)
+
+# Accuracy and Confusion Matrix
+print("Accuracy:", metrics.accuracy_score(y_test, prediction))
+
+cm = confusion_matrix(y_test, prediction)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot(cmap="Blues")
+plt.show()
